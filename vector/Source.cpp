@@ -1,4 +1,4 @@
-//Inspired by the Internetand your lectures
+//Inspired by the Internet and your lectures
 //Implementation Vector3D and Matrix3D
 
 
@@ -35,7 +35,7 @@ public:
         case 2:
             return z;
         }
-        return -1;
+        return 0;
     }
     void setX(int x) {
         this->x = x;
@@ -57,25 +57,25 @@ public:
             z = value;
         }
     }
-    bool operator== (const Vector3D& v3) const
+    bool operator== (const Vector3D& v) const
     {
-        return x == v3.x && y == v3.y && z == v3.z;
+        return x == v.x && y == v.y && z == v.z;
     };
-    bool operator!= (const Vector3D& v3) const
+    bool operator!= (const Vector3D& v) const
     {
-        return x != v3.x || y != v3.y || z != v3.z;
+        return x != v.x || y != v.y || z != v.z;
     };
-    Vector3D operator+ (const Vector3D& v3) const
+    Vector3D operator+ (const Vector3D& v) const
     {
-        return Vector3D(x + v3.x, y + v3.y, z + v3.z);
+        return Vector3D(x + v.x, y + v.y, z + v.z);
     };
-    int operator* (const Vector3D& v3)
+    int operator* (const Vector3D& v)
     {
-        return (x * v3.getX() + y * v3.getY() + z * v3.getZ());
+        return (x * v.getX() + y * v.getY() + z * v.getZ());
     };
-    Vector3D operator- (const Vector3D& v3) const
+    Vector3D operator- (const Vector3D& v) const
     {
-        return Vector3D(x - v3.x, y - v3.y, z - v3.z);
+        return Vector3D(x - v.x, y - v.y, z - v.z);
     };
     Vector3D operator* (const int a) const
     {
@@ -90,22 +90,22 @@ Vector3D operator* (int a, const Vector3D& v)
 {
     return Vector3D(a * v.getX(), a * v.getY(), a * v.getZ());
 }
-ostream& operator<<(ostream& os, const Vector3D& v)
+ostream& operator<<(ostream& wh, const Vector3D& v)
 {
-    os << "(" << v.getX() << "; " << v.getY() << "; " << v.getZ() << ")";
-    return os;
+    wh << "(" << v.getX() << "; " << v.getY() << "; " << v.getZ() << ")";
+    return wh;
 };
-istream& operator>>(istream& is, Vector3D& v)
+istream& operator>>(istream& mean, Vector3D& v)
 {
     int x;
     int y;
     int z;
 
-    is >> x >> y >> z;
+    mean >> x >> y >> z;
     v.setX(x);
     v.setY(y);
     v.setZ(z);
-    return is;
+    return mean;
 };
 
 
@@ -113,8 +113,6 @@ istream& operator>>(istream& is, Vector3D& v)
 
 
 class Matrix3D {
-protected:
-    double data[9];
 public:
     Matrix3D(double a0, double a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8);
     Matrix3D(double* data);
@@ -126,6 +124,8 @@ public:
     Matrix3D operator-(const Matrix3D& m1) const;
     Matrix3D operator*(const Matrix3D& m1) const;
     Matrix3D operator*(const double& scale) const;
+protected:
+    double data[9];
 };
 
 
@@ -150,17 +150,18 @@ Matrix3D::Matrix3D(double* data) {
     delete[] data;
 }
 
-Matrix3D::Matrix3D() {
-    for (int i = 0; i < 9; i++) {
-        data[i] = 0;
-    }
-}
 
 double Matrix3D::get(int i, int j) const {
     if ((i < 0) || (j < 0) || (i > 2) || (j > 2)) {
         return 0;
     }
     return data[(i * 3) + j];
+}
+
+Matrix3D::Matrix3D() {
+    for (int i = 0; i < 9; i++) {
+        data[i] = 0;
+    }
 }
 
 void Matrix3D::set(double value, int i, int j) {
@@ -174,11 +175,11 @@ double Matrix3D::determinant() const {
 }
 
 Matrix3D Matrix3D::operator+(const Matrix3D& m1) const {
-    double* res = new double[9];
+    double* s = new double[9];
     for (int i = 0; i < 9; i++) {
-        res[i] = data[i] + m1.data[i];
+        s[i] = data[i] + m1.data[i];
     }
-    return Matrix3D(res);
+    return Matrix3D(s);
 }
 
 Matrix3D Matrix3D::operator-(const Matrix3D& m1) const {
@@ -186,27 +187,27 @@ Matrix3D Matrix3D::operator-(const Matrix3D& m1) const {
 }
 
 Matrix3D Matrix3D::operator*(const double& scale) const {
-    double* res = new double[9];
+    double* s = new double[9];
     for (int i = 0; i < 9; i++) {
-        res[i] = scale * data[i];
+        s[i] = scale * data[i];
     }
-    return Matrix3D(res);
+    return Matrix3D(s);
 }
 
 Matrix3D Matrix3D::operator*(const Matrix3D& m1) const {
-    double* res = new double[9];
+    double* s = new double[9];
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
-            res[(i * 3) + j] = 0;
+            s[(i * 3) + j] = 0;
             for (int k = 0; k < 3; k++) {
-                res[(i * 3) + j] += get(i, k) * m1.get(k, j);
+                s[(i * 3) + j] += get(i, k) * m1.get(k, j);
             }
         }
     }
-    return Matrix3D(res);
+    return Matrix3D(s);
 }
 
-ostream& operator<<(std::ostream& os, const Matrix3D& m) {
+ostream& operator<<(std::ostream& wh, const Matrix3D& m) {
     for (int i = 0; i < 3; i++)
     {
         for (int j = 0; j < 3; j++)
@@ -215,32 +216,32 @@ ostream& operator<<(std::ostream& os, const Matrix3D& m) {
         }
         cout << endl;
     }
-    return os;
+    return wh;
 }
 
-Vector3D operator*(const Matrix3D& m, const Vector3D& v) {
-    Vector3D res;
+Vector3D operator*(const Matrix3D& matrix, const Vector3D& vector) {
+    Vector3D s;
     for (int i = 0; i < 3; i++) {
-        double temp = 0;
+        double p = 0;
         for (int j = 0; j < 3; j++) {
-            temp += m.get(i, j) * v.get(j);
+            p += matrix.get(i, j) * vector.get(j);
         }
-        res.set(temp, i);
+        s.set(p, i);
     }
-    return res;
+    return s;
 }
-istream& operator>>(std::istream& is, Matrix3D& m) {
+istream& operator>>(std::istream& wh, Matrix3D& matrix) {
     double* data = new double[9];
     for (int i = 0; i < 9; i++)
     {
-        is >> data[i];
+        wh >> data[i];
     }
-    m = Matrix3D(data);
-    return is;
+    matrix = Matrix3D(data);
+    return wh;
 }
 
-Matrix3D operator*(const double& scale, const Matrix3D& m) {
-    return m * scale;
+Matrix3D operator*(const double& scale, const Matrix3D& matrix) {
+    return matrix * scale;
 }
 
 int main()
