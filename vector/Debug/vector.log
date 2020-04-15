@@ -1,5 +1,0 @@
-﻿  Source.cpp
-C:\Users\fopdf\source\repos\vector\vector\Source.cpp(47,17): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-C:\Users\fopdf\source\repos\vector\vector\Source.cpp(49,17): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-C:\Users\fopdf\source\repos\vector\vector\Source.cpp(51,17): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-  vector.vcxproj -> C:\Users\fopdf\source\repos\vector\Debug\vector.exe
