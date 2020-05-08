@@ -82,19 +82,19 @@ Matrix3D Matrix3D::operator*(const Matrix3D& m1) const {
     return Matrix3D(s);
 }
 
-ostream& operator<<(std::ostream& wh, const Matrix3D& m) {
+std:: ostream& operator<<(std::ostream& wh, const Matrix3D& m) {
     for (int i = 0; i < 3; i++)
     {
         for (int j = 0; j < 3; j++)
         {
             wh << m.get(i, j) << ", ";
         }
-        wh << endl;
+        wh << std::endl;
     }
     return wh;
 }
 
-istream& operator>>(std::istream& hw, Matrix3D& matrix) {
+std::istream& operator>>(std::istream& hw, Matrix3D& matrix) {
     double* data = new double[9];
     for (int i = 0; i < 9; i++)
     {

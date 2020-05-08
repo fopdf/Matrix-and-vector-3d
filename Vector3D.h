@@ -11,10 +11,10 @@ class Vector3D
 public:
     Vector3D(double x, double y, double z);
     Vector3D();
-    double getX();
-    double getY();
-    double getZ();
-    double get(int i);
+    double getX() const;
+    double getY() const;
+    double getZ()const;
+    double get(int i) const;
     
     
     void setX(double x);
@@ -26,19 +26,19 @@ public:
     bool operator== (const Vector3D& v) const;
     bool operator!= (const Vector3D& v) const;
     Vector3D operator+ (const Vector3D& v) const;
-    int operator* (Vector3D& v);
+    double operator*(const Vector3D& v) const;
     Vector3D operator- (const Vector3D& v) const;
-    Vector3D operator* (const int a) const;
+    Vector3D operator* (const double& a) const;
 protected:
-    int x;
-    int y;
-    int z;
+    double x;
+    double y;
+    double z;
 };
 
-ostream& operator<<(ostream& wh, const Vector3D& v);
+std::ostream& operator<<(std::ostream& wh,const Vector3D& v);
 Vector3D operator*(const Matrix3D& m, const Vector3D& v);
-Vector3D operator* (double a, const Vector3D& v);
-istream& operator>>(istream& mean, Vector3D& v);
+Vector3D operator* (const double a, const Vector3D& v);
+std::istream& operator>>(std::istream& mean, Vector3D& v);
 
 
 

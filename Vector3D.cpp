@@ -4,7 +4,11 @@
 
 
 
-Vector3D::Vector3D(double x, double y, double z) : x(x), y(y), z(z) {
+Vector3D::Vector3D(double x, double y, double z)
+{
+    this->x = x;
+    this->y = y;
+    this->z = z;
 }
 Vector3D::Vector3D()
 {
@@ -12,16 +16,16 @@ Vector3D::Vector3D()
     y = 0;
     z = 0;
 }
-double Vector3D::getX() {
+double Vector3D::getX() const {
     return x;
 }
-double Vector3D::getY()  {
+double Vector3D::getY()  const {
     return y;
 }
-double Vector3D::getZ()  {
+double Vector3D::getZ()  const {
     return z;
 }
-double Vector3D::get(int i) 
+double Vector3D::get(int i)  const
 {
     switch (i) {
     case 0:
@@ -75,37 +79,36 @@ Vector3D Vector3D::operator- (const Vector3D& v) const
 {
     return Vector3D(x - v.x, y - v.y, z - v.z);
 };
-Vector3D Vector3D::operator* (const int a) const
+double Vector3D::operator*(const Vector3D& v) const
+{
+    return v.x * x + v.y * y + v.z * z;
+}
+Vector3D Vector3D::operator* (const double& a) const
 {
     return Vector3D(a * x, a * y, a * z);
 };
-int Vector3D::operator* ( Vector3D& v)
-{
-    return (x * v.getX() + y * v.getY() + z * v.getZ());
-};
 
 
-istream& operator>>(istream& mean, Vector3D& v)
+
+std::istream& operator>>(std::istream& mean, Vector3D& v)
 {
-    int x;
-    int y;
-    int z;
+    double x;
+    double y;
+    double z;
 
     mean >> x >> y >> z;
-    v.setX(x);
-    v.setY(y);
-    v.setZ(z);
+    v = Vector3D(x, y, z);
     return mean;
 };
 
 
-std::ostream& operator<<(ostream& wh,  Vector3D& v)
+std::ostream& operator<<(std::ostream& wh,const  Vector3D& v)
 {
     wh << "(" << v.getX() << "; " << v.getY() << "; " << v.getZ() << ")";
     return wh;
 };
 
-Vector3D operator*(const Matrix3D& matrix,  Vector3D& vector) {
+Vector3D operator*(const Matrix3D& matrix,const  Vector3D& vector) {
     Vector3D s;
     for (int i = 0; i < 3; i++) {
         double p = 0;
@@ -117,21 +120,7 @@ Vector3D operator*(const Matrix3D& matrix,  Vector3D& vector) {
     return s;
 }
 
-Vector3D operator*(const Matrix3D& m, const Vector3D& v);
-std::istream& operator>>(istream& mean, Vector3D& v)
-{
-    int x;
-    int y;
-    int z;
-
-    mean >> x >> y >> z;
-    v.setX(x);
-    v.setY(y);
-    v.setZ(z);
-    return mean;
-};
-
-Vector3D operator* (double a,  Vector3D& v)
+Vector3D operator* (const double a,const  Vector3D& v)
 {
     return Vector3D(a * v.getX(), a * v.getY(), a * v.getZ());
 }
